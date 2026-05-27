@@ -6,57 +6,52 @@
     <title>Snoet Studio // Pipeline</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #0e0e10; --panel: #16161a; --panel2: #1c1c21;
-            --border: #2a2a32; --orange: #ff7a00;
-            --green: #22c55e; --green-dim: rgba(34,197,94,0.12);
-            --blue: #3b82f6; --blue-dim: rgba(59,130,246,0.12);
-            --yellow: #eab308; --yellow-dim: rgba(234,179,8,0.12);
-            --text: #f0f0f4; --muted: #6b6b78;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Syne', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 32px; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
-        .brand h1 { font-size: 26px; font-weight: 800; letter-spacing: 1px; }
-        .brand h1 span { color: var(--orange); }
-        .brand p { font-size: 13px; color: var(--muted); margin-top: 4px; }
-        .header-right { display: flex; align-items: center; gap: 12px; }
-        .sync-time { font-size: 12px; color: var(--muted); }
-        .btn-refresh { background: var(--orange); color: white; border: none; padding: 10px 22px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'Syne', sans-serif; transition: background 0.2s; }
-        .btn-refresh:hover { background: #e06d00; }
-        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
-        .stat { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; }
-        .stat label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; display: block; margin-bottom: 8px; }
-        .stat .num { font-size: 28px; font-weight: 800; }
-        .orders { display: flex; flex-direction: column; gap: 14px; }
-        .order-card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
-        .order-top { display: flex; justify-content: space-between; align-items: flex-start; padding: 18px 22px 14px; gap: 16px; flex-wrap: wrap; }
-        .order-meta { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-        .order-id-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        .order-num { font-size: 11px; color: var(--muted); font-weight: 600; }
-        .order-badge { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; background: var(--blue-dim); color: #60a5fa; padding: 3px 10px; border-radius: 6px; }
-        .order-date { font-size: 12px; color: var(--muted); }
-        .order-client { font-size: 15px; font-weight: 700; }
-        .order-desc { font-size: 13px; color: var(--muted); }
-        .order-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; min-width: 130px; }
-        .order-price { font-size: 16px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
-        .status-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 4px 12px; border-radius: 20px; white-space: nowrap; }
-        .status-transit { background: var(--green-dim); color: var(--green); }
-        .status-production { background: var(--blue-dim); color: #60a5fa; }
-        .status-confirmed { background: var(--yellow-dim); color: var(--yellow); }
-        .tracking-box { background: var(--panel2); margin: 0 16px 16px; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
-        .track-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
-        .track-icon { font-size: 14px; color: var(--muted); width: 20px; text-align: center; }
-        .track-link { color: #60a5fa; text-decoration: none; font-size: 13px; }
-        .track-link:hover { text-decoration: underline; }
-        .track-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
-        .chip { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; background: var(--green-dim); color: var(--green); }
-        .footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border); }
-        .error { text-align: center; padding: 40px; color: #ef4444; font-size: 14px; background: var(--panel); border-radius: 12px; border: 1px solid #ef444433; }
+        :root{--bg:#0e0e10;--panel:#16161a;--panel2:#1c1c21;--border:#2a2a32;--orange:#ff7a00;--green:#22c55e;--green-dim:rgba(34,197,94,0.12);--blue:#3b82f6;--blue-dim:rgba(59,130,246,0.12);--yellow:#eab308;--yellow-dim:rgba(234,179,8,0.12);--text:#f0f0f4;--muted:#6b6b78;}
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:32px;}
+        .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+        .brand h1{font-size:26px;font-weight:800;letter-spacing:1px;}
+        .brand h1 span{color:var(--orange);}
+        .brand p{font-size:13px;color:var(--muted);margin-top:4px;}
+        .header-right{display:flex;align-items:center;gap:12px;}
+        .sync-time{font-size:12px;color:var(--muted);}
+        .btn-refresh{background:var(--orange);color:white;border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;transition:background 0.2s;}
+        .btn-refresh:hover{background:#e06d00;}
+        .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+        .stat{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px 24px;}
+        .stat label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;display:block;margin-bottom:8px;}
+        .stat .num{font-size:28px;font-weight:800;}
+        .orders{display:flex;flex-direction:column;gap:14px;}
+        .order-card{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+        .order-top{display:flex;justify-content:space-between;align-items:flex-start;padding:18px 22px 14px;gap:16px;flex-wrap:wrap;}
+        .order-meta{flex:1;display:flex;flex-direction:column;gap:5px;}
+        .order-id-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+        .order-num{font-size:11px;color:var(--muted);font-weight:600;}
+        .order-badge{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;background:var(--blue-dim);color:#60a5fa;padding:3px 10px;border-radius:6px;}
+        .order-date{font-size:12px;color:var(--muted);}
+        .order-client{font-size:15px;font-weight:700;}
+        .order-desc{font-size:13px;color:var(--muted);}
+        .order-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;min-width:130px;}
+        .order-price{font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+        .status-badge{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:4px 12px;border-radius:20px;white-space:nowrap;}
+        .status-transit{background:var(--green-dim);color:var(--green);}
+        .status-delivery{background:rgba(255,122,0,0.15);color:var(--orange);}
+        .status-delivered{background:rgba(34,197,94,0.25);color:#16a34a;}
+        .status-production{background:var(--blue-dim);color:#60a5fa;}
+        .status-confirmed{background:var(--yellow-dim);color:var(--yellow);}
+        .status-dispatched{background:rgba(168,85,247,0.15);color:#c084fc;}
+        .tracking-box{background:var(--panel2);margin:0 16px 16px;border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;}
+        .track-row{display:flex;align-items:center;gap:10px;font-size:13px;}
+        .track-icon{font-size:14px;color:var(--muted);width:20px;text-align:center;}
+        .track-link{color:#60a5fa;text-decoration:none;font-size:13px;}
+        .track-link:hover{text-decoration:underline;}
+        .track-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+        .chip{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;background:var(--green-dim);color:var(--green);}
+        .footer{text-align:center;font-size:12px;color:var(--muted);margin-top:32px;padding-top:20px;border-top:1px solid var(--border);}
+        .empty{text-align:center;padding:60px;color:var(--muted);font-size:14px;}
     </style>
 </head>
 <body>
-
 <div class="header">
     <div class="brand">
         <h1>SNOET <span>STUDIO</span> // Pipeline</h1>
@@ -64,120 +59,73 @@
     </div>
     <div class="header-right">
         <span class="sync-time" id="sync-time">—</span>
-        <button class="btn-refresh" onclick="loadOrders()">↻ Refresh</button>
+        <button class="btn-refresh" onclick="render()">↻ Refresh</button>
     </div>
 </div>
-
 <div class="stats">
     <div class="stat"><label>Active Orders</label><div class="num" id="stat-total">—</div></div>
     <div class="stat"><label>In Production</label><div class="num" id="stat-prod" style="color:#60a5fa">—</div></div>
     <div class="stat"><label>In Transit</label><div class="num" id="stat-transit" style="color:var(--green)">—</div></div>
     <div class="stat"><label>Queue Value</label><div class="num" id="stat-value" style="color:var(--orange);font-size:20px;">—</div></div>
 </div>
-
 <div class="orders" id="orders-container"></div>
-
 <div class="footer">Snoet Studio · Studio22 via BobGo / The Courier Guy · <span id="footer-time"></span></div>
-
 <script>
-// ── EMBEDDED DATA — updated by AutoSync.py ──
-// DO NOT EDIT BELOW THIS LINE MANUALLY
-const ORDERS_DATA = [{"order_id":"225257033","client":"Irma","date":"14 May 2026","details":"1x A4 Framed Print Vertical with 20mm","price":"R325.00","status":"Delivered","confirmed":"","ships":"","waybill":"UAT348P6B","bobgo_order":"O-4HWWQJ","courier":"The Courier Guy","track_url":"https://track.bobgo.co.za/UAT348P6B","chips":["Created 22 May 2026
-                                                 
-                                                14:44","Collected 22 May 2026
-                                                 
-                                                15:00","In Transit 23 May 2026
-                                                 
-                                                20:32","Out For Delivery 25 May 2026
-                                                 
-                                                11:30","Delivered 25 May 2026
-                                                 
-                                                11:32"]},{"order_id":"227143800","client":"Megan","date":"21 May 2026","details":"3x A3 Framed Prints (Vertical): two","price":"R1,485.00","status":"In Production","confirmed":"","ships":"","waybill":"Pending","bobgo_order":"","courier":"","track_url":"","chips":[]},{"order_id":"227182405","client":"Karin","date":"22 May 2026","details":"","price":"R242.00","status":"Collected","confirmed":"","ships":"","waybill":"UATLNQQZB","bobgo_order":"O-RJBKTV","courier":"The Courier Guy","track_url":"https://track.bobgo.co.za/UATLNQQZB","chips":["Created 26 May 2026
-                                                 
-                                                08:29","Collected 26 May 2026
-                                                 
-                                                11:42"]}];
-// ── END DATA ──
-
-function statusClass(s) {
-    if (!s) return 'status-confirmed';
-    const l = s.toLowerCase();
-    if (l.includes('transit') || l.includes('dispatch')) return 'status-transit';
-    if (l.includes('production')) return 'status-production';
-    return 'status-confirmed';
-}
-
-function loadOrders() {
-    renderOrders(ORDERS_DATA);
-}
-
-function renderOrders(orders) {
-    const container = document.getElementById('orders-container');
-    if (!orders || !orders.length) {
-        container.innerHTML = '<div class="error">No orders found.</div>';
-        return;
-    }
-
-    let prod = 0, transit = 0, totalValue = 0;
-    container.innerHTML = '';
-
-    orders.forEach((o, i) => {
-        const sClass = statusClass(o.status);
-        if (sClass === 'status-transit') transit++;
-        if (sClass === 'status-production') prod++;
-        const priceNum = parseFloat((o.price || '0').replace(/[^0-9.]/g, ''));
-        if (!isNaN(priceNum)) totalValue += priceNum;
-
-        let trackingHTML = '';
-        if (o.waybill && o.waybill !== 'Pending') {
-            const chips = (o.chips || []).map(c => `<span class="chip">${c}</span>`).join('');
-            trackingHTML = `
-                <div class="tracking-box">
-                    ${o.bobgo_order ? `<div class="track-row"><span class="track-icon">📦</span><span>BobGo <strong>${o.bobgo_order}</strong> · ${o.courier}</span></div>` : ''}
-                    <div class="track-row"><span class="track-icon">🚚</span><span>Waybill: <strong>${o.waybill}</strong></span></div>
-                    ${o.track_url ? `<div class="track-row"><span class="track-icon">🔗</span><a href="${o.track_url}" target="_blank" class="track-link">${o.track_url}</a></div>` : ''}
-                    ${chips ? `<div class="track-chips">${chips}</div>` : ''}
-                </div>`;
-        } else {
-            trackingHTML = `
-                <div class="tracking-box">
-                    ${o.confirmed ? `<div class="track-row"><span class="track-icon">✅</span><span>${o.confirmed}</span></div>` : ''}
-                    ${o.ships ? `<div class="track-row"><span class="track-icon">⏱</span><span><strong>${o.ships}</strong></span></div>` : ''}
-                    <div class="track-row"><span class="track-icon">🚚</span><span style="color:var(--muted)">Waybill: will be sent once booked with courier</span></div>
-                </div>`;
-        }
-
-        container.innerHTML += `
-            <div class="order-card">
-                <div class="order-top">
-                    <div class="order-meta">
-                        <div class="order-id-row">
-                            <span class="order-num">${i + 1}</span>
-                            <span class="order-badge">${o.order_id || '—'}</span>
-                            <span class="order-date">${o.date || ''}</span>
-                        </div>
-                        <div class="order-client">${o.client} — Snoet Studio</div>
-                        <div class="order-desc">${o.details || ''}</div>
-                    </div>
-                    <div class="order-right">
-                        <span class="order-price">${o.price || '—'}</span>
-                        <span class="status-badge ${sClass}">${o.status}</span>
-                    </div>
-                </div>
-                ${trackingHTML}
+/*ORDERS_START*/const ORDERS_DATA = [];/*ORDERS_END*/
+function statusClass(s){if(!s)return'status-confirmed';const l=s.toLowerCase();if(l.includes('delivered')&&!l.includes('out'))return'status-delivered';if(l.includes('out for delivery'))return'status-delivery';if(l.includes('transit'))return'status-transit';if(l.includes('production'))return'status-production';if(l.includes('dispatch'))return'status-dispatched';return'status-confirmed';}
+function render(){
+    const container=document.getElementById('orders-container');
+    if(!ORDERS_DATA||!ORDERS_DATA.length){container.innerHTML='<div class="empty">No orders found.</div>';return;}
+    let prod=0,transit=0,totalValue=0;
+    container.innerHTML='';
+    ORDERS_DATA.forEach((o,i)=>{
+        const sClass=statusClass(o.status);
+        if(sClass==='status-transit'||sClass==='status-delivery')transit++;
+        if(sClass==='status-production')prod++;
+        const priceNum=parseFloat((o.price||'0').replace(/[^0-9.]/g,''));
+        if(!isNaN(priceNum))totalValue+=priceNum;
+        let trackingHTML='';
+        if(o.waybill&&o.waybill!=='Pending'){
+            const chips=(o.chips||[]).map(c=>`<span class="chip">${c}</span>`).join('');
+            trackingHTML=`<div class="tracking-box">
+                ${o.bobgo_order?`<div class="track-row"><span class="track-icon">📦</span><span>BobGo <strong>${o.bobgo_order}</strong> · ${o.courier}</span></div>`:''}
+                <div class="track-row"><span class="track-icon">🚚</span><span>Waybill: <strong>${o.waybill}</strong></span></div>
+                ${o.track_url?`<div class="track-row"><span class="track-icon">🔗</span><a href="${o.track_url}" target="_blank" class="track-link">${o.track_url}</a></div>`:''}
+                ${chips?`<div class="track-chips">${chips}</div>`:''}
             </div>`;
+        }else{
+            trackingHTML=`<div class="tracking-box">
+                ${o.confirmed?`<div class="track-row"><span class="track-icon">✅</span><span>${o.confirmed}</span></div>`:''}
+                ${o.ships?`<div class="track-row"><span class="track-icon">⏱</span><span><strong>${o.ships}</strong></span></div>`:''}
+                <div class="track-row"><span class="track-icon">🚚</span><span style="color:var(--muted)">Waybill: will be sent once booked with courier</span></div>
+            </div>`;
+        }
+        container.innerHTML+=`<div class="order-card">
+            <div class="order-top">
+                <div class="order-meta">
+                    <div class="order-id-row">
+                        <span class="order-num">${i+1}</span>
+                        <span class="order-badge">${o.order_id||'—'}</span>
+                        <span class="order-date">${o.date||''}</span>
+                    </div>
+                    <div class="order-client">${o.client} — Snoet Studio</div>
+                    <div class="order-desc">${o.details||''}</div>
+                </div>
+                <div class="order-right">
+                    <span class="order-price">${o.price||'—'}</span>
+                    <span class="status-badge ${sClass}">${o.status}</span>
+                </div>
+            </div>${trackingHTML}</div>`;
     });
-
-    document.getElementById('stat-total').innerText = orders.length;
-    document.getElementById('stat-prod').innerText = prod;
-    document.getElementById('stat-transit').innerText = transit;
-    document.getElementById('stat-value').innerText = `R${totalValue.toLocaleString('en-ZA', {minimumFractionDigits: 2})}`;
-    const now = new Date().toLocaleString('en-ZA');
-    document.getElementById('sync-time').innerText = `Synced ${now}`;
-    document.getElementById('footer-time').innerText = now;
+    document.getElementById('stat-total').innerText=ORDERS_DATA.length;
+    document.getElementById('stat-prod').innerText=prod;
+    document.getElementById('stat-transit').innerText=transit;
+    document.getElementById('stat-value').innerText=`R${totalValue.toLocaleString('en-ZA',{minimumFractionDigits:2})}`;
+    const now=new Date().toLocaleString('en-ZA');
+    document.getElementById('sync-time').innerText=`Synced ${now}`;
+    document.getElementById('footer-time').innerText=now;
 }
-
-loadOrders();
+render();
 </script>
 </body>
 </html>
